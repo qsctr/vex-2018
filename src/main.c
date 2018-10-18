@@ -29,6 +29,8 @@
 
 #define PA_VALUE ((SensorValue(pal) + SensorValue(par)) / 2)
 
+#define RED
+
 short pa_target;
 byte arm;
 short ps_target;
@@ -36,26 +38,120 @@ byte sprocket;
 short pa_prev;
 
 void pre_auton() {
-	resetMotorEncoder(fl);
-	resetMotorEncoder(fr);
 	resetMotorEncoder(bl);
 	resetMotorEncoder(br);
 }
 
+#define drive(x) motor[fl] = motor[fr] = motor[bl] = motor[br] = x
+#define left(x) motor[fl] = motor[bl] = x
+#define right(x) motor[fr] = motor[br] = x
+#define drive_enc ((nMotorEncoder(bl) + nMotorEncoder(br)) / 2)
+
+void reset_both() {
+	resetMotorEncoder(bl);
+	resetMotorEncoder(br);
+}
+
+task auto_arm_up();
+task auto_arm_down();
+task auto_sp_down();
+task auto_sp_up();
+
 task autonomous() {
-	resetMotorEncoder(bl);
-	resetMotorEncoder(br);
-	motor[fl] = motor[bl] = -127;
+	motor[shu] = motor[shd] = 127;
+	sleep(1200);
+	motor[shu] = motor[shd] = 0;
+	startTask(auto_arm_up);
+	startTask(auto_sp_down);
+	reset_both();
+#ifdef RED
+	right(127);
+	while (nMotorEncoder(br) < 30);
+	right(0);
+#endif
+	reset_both();
+	drive(127);
+#ifdef RED
+	while (drive_enc < 1600);
+#else
+	while (drive_enc < 1250);
+#endif
+	drive(0);
+	reset_both();
+#ifdef RED
+	left(-127);
+	while (nMotorEncoder(bl) > -180);
+	left(0);
+#else
+	right(127);
+	while (nMotorEncoder(br) < 300);
+	right(-127);
+	while (nMotorEncoder(br) > -180);
+	right(0);
+#endif
+	startTask(auto_arm_down);
+	startTask(auto_sp_up);
+	reset_both();
+	drive(-127);
+#ifdef RED
+	while (drive_enc > -1760);
+#else
+	while (drive_enc > -1750);
+#endif
+	drive(0);
+	reset_both();
+#ifdef RED
+	left(-127);
+	while (nMotorEncoder(bl) > -980);
+	left(0);
+#else
+	right(-127);
+	while (nMotorEncoder(br) > -1000);
+	right(0);
+#endif
+	reset_both();
+	drive(-127);
+	while (drive_enc > -1500);
+	drive(0);
+	/*
+	drive(127);
+	while (drive_enc < 4000);
+	reset_both();
+	left(-127);
 	while (nMotorEncoder(bl) > -1200);
-	motor[fl] = motor[bl] = 0;
-	motor[fr] = motor[br] = -127;
+	left(0);
+	right(-127);
 	while (nMotorEncoder(br) > -1200);
-	motor[fr] = motor[br] = 0;
-	resetMotorEncoder(bl);
-	resetMotorEncoder(br);
-	motor[fl] = motor[fr] = motor[bl] = motor[br] = -127;
-	while ((nMotorEncoder(bl) + nMotorEncoder(br)) / 2 > -2000);
-	motor[fl] = motor[fr] = motor[bl] = motor[br] = 0;
+	right(0);
+	reset_both();
+	drive(-127);
+	while (drive_enc > -2000);
+	drive(0);
+	*/
+}
+
+task auto_arm_up() {
+	motor[al] = motor[ar] = 127;
+	while (PA_VALUE < 100);
+	motor[al] = motor[ar] = 0;
+}
+
+task auto_arm_down() {
+	motor[al] = motor[ar] = -127;
+	while (PA_VALUE > 0);
+	motor[al] = motor[ar] = 0;
+}
+
+task auto_sp_down() {
+	motor[sp] = -127;
+	while (SensorValue(ps) > 200);
+	motor[sp] = 0;
+}
+
+task auto_sp_up() {
+	motor[sp] = 127;
+	while (SensorValue(ps) < 1800);
+	motor[sp] = 0;
 }
 
 float battery;
@@ -71,15 +167,15 @@ task usercontrol() {
 			ps_target = 0;
 			sprocket = 0;
 		}
-		if ((vexRT[Ch3Xmtr2] > 10 || vexRT[Ch2Xmtr2] > 10)
-			&& vexRT[Ch3] < 10 && vexRT[Ch2] < 10) {
+		if ((abs(vexRT[Ch3Xmtr2]) > 20 || abs(vexRT[Ch2Xmtr2]) > 20)
+			&& abs(vexRT[Ch3]) < 20 && abs(vexRT[Ch2]) < 20) {
 			motor[fl] = motor[bl] = vexRT[Ch3Xmtr2];
 			motor[fr] = motor[br] = vexRT[Ch2Xmtr2];
 		} else {
 			motor[fl] = motor[bl] = vexRT[Ch3];
 			motor[fr] = motor[br] = vexRT[Ch2];
 		}
-		motor[in] = vexRT[Btn6UXmtr2] ? 127 : vexRT[Btn6DXmtr2] ? -127 : 0;
+		motor[in] = vexRT[Btn6UXmtr2] ? 127 : vexRT[Btn6DXmtr2] ? -127 : vexRT[Btn8UXmtr2] ? 40 : 0;
 		motor[shu] = motor[shd] = vexRT[Btn5UXmtr2] * 127;
 		if (vexRT[Btn6U]) {
 			if (PA_VALUE < PA_SAFE) {
