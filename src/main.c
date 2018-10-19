@@ -21,10 +21,10 @@
 
 #include "Vex_Competition_Includes.c"
 
-#define PA_LOW_POLE 650
-#define PA_HIGH_POLE 1450
+#define PA_LOW_POLE 900
+#define PA_HIGH_POLE 1350
 #define PA_SAFE 2000
-#define PS_PARALLEL 1000
+#define PS_PARALLEL 700
 #define PS_SAFE 2100
 
 #define PA_VALUE ((SensorValue(pal) + SensorValue(par)) / 2)
@@ -58,6 +58,7 @@ task auto_sp_down();
 task auto_sp_up();
 
 task autonomous() {
+	motor[in] = 127;
 	motor[shu] = motor[shd] = 127;
 	sleep(1200);
 	motor[shu] = motor[shd] = 0;
@@ -205,11 +206,11 @@ task usercontrol() {
 		} else {
 			motor[sp] = 0;
 		}
-		if (vexRT[Btn8R] && !pa_target) {
+		if (vexRT[Btn8D] && !pa_target) {
 			pa_target = PA_LOW_POLE;
 			arm = PA_VALUE < pa_target ? 127 : -127;
 		}
-		if (vexRT[Btn8U] && !pa_target) {
+		if (vexRT[Btn8R] && !pa_target) {
 			pa_target = PA_HIGH_POLE;
 			arm = PA_VALUE < pa_target ? 127 : -127;
 		}
