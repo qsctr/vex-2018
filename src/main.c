@@ -22,7 +22,7 @@
 #include "Vex_Competition_Includes.c"
 
 #define PA_LOW_POLE 900
-#define PA_HIGH_POLE 1350
+#define PA_HIGH_POLE 1370
 #define PA_SAFE 2000
 #define PS_PARALLEL 700
 #define PS_SAFE 2100
@@ -65,45 +65,39 @@ task autonomous() {
 	startTask(auto_arm_up);
 	startTask(auto_sp_down);
 	reset_both();
-#ifdef RED
-	right(127);
-	while (nMotorEncoder(br) < 30);
-	right(0);
-#endif
 	reset_both();
 	drive(127);
 #ifdef RED
-	while (drive_enc < 1600);
+	while (drive_enc < 1300);
 #else
-	while (drive_enc < 1250);
+	while (drive_enc < 1300);
 #endif
 	drive(0);
 	reset_both();
 #ifdef RED
 	left(-127);
-	while (nMotorEncoder(bl) > -180);
+	while (nMotorEncoder(bl) > -50);
 	left(0);
 #else
-	right(127);
-	while (nMotorEncoder(br) < 300);
 	right(-127);
-	while (nMotorEncoder(br) > -180);
+	while (nMotorEncoder(br) > -50);
 	right(0);
 #endif
+
 	startTask(auto_arm_down);
 	startTask(auto_sp_up);
 	reset_both();
 	drive(-127);
 #ifdef RED
-	while (drive_enc > -1760);
+	while (drive_enc > -1550);
 #else
-	while (drive_enc > -1750);
+	while (drive_enc > -1700);
 #endif
 	drive(0);
 	reset_both();
 #ifdef RED
 	left(-127);
-	while (nMotorEncoder(bl) > -980);
+	while (nMotorEncoder(bl) > -1050);
 	left(0);
 #else
 	right(-127);
@@ -112,18 +106,16 @@ task autonomous() {
 #endif
 	reset_both();
 	drive(-127);
-	while (drive_enc > -1500);
+	while (drive_enc > -1800);
 	drive(0);
+
 	/*
-	drive(127);
-	while (drive_enc < 4000);
-	reset_both();
-	left(-127);
-	while (nMotorEncoder(bl) > -1200);
-	left(0);
 	right(-127);
 	while (nMotorEncoder(br) > -1200);
 	right(0);
+	left(-127);
+	while (nMotorEncoder(bl) > -1200);
+	left(0);
 	reset_both();
 	drive(-127);
 	while (drive_enc > -2000);
