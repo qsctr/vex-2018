@@ -29,7 +29,7 @@
 
 #define PA_VALUE ((SensorValue(pal) + SensorValue(par)) / 2)
 
-#define RED
+// #define RED
 
 short pa_target;
 byte arm;
@@ -89,7 +89,7 @@ task autonomous() {
 	reset_both();
 	drive(-127);
 #ifdef RED
-	while (drive_enc > -1550);
+	while (drive_enc > -1530);
 #else
 	while (drive_enc > -1700);
 #endif
