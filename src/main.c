@@ -21,7 +21,7 @@
 
 #include "Vex_Competition_Includes.c"
 
-#define PA_LOW_POLE 900
+#define PA_LOW_POLE 800
 #define PA_HIGH_POLE 1370
 #define PA_SAFE 2000
 #define PS_PARALLEL 700
@@ -202,10 +202,12 @@ task usercontrol() {
 			pa_target = PA_LOW_POLE;
 			arm = PA_VALUE < pa_target ? 127 : -127;
 		}
+		/*
 		if (vexRT[Btn8R] && !pa_target) {
 			pa_target = PA_HIGH_POLE;
 			arm = PA_VALUE < pa_target ? 127 : -127;
 		}
+		*/
 		if (vexRT[Btn7D] && !ps_target
 			|| pa_prev > 1000 && PA_VALUE <= 1000 && SensorValue(ps) > PS_SAFE) {
 			ps_target = PS_PARALLEL;
