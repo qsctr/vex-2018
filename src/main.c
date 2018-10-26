@@ -214,6 +214,7 @@ task usercontrol() {
 			sprocket = SensorValue(ps) < ps_target ? 127 : -127;
 		}
 		pa_prev = PA_VALUE;
+		sleep(25);
 	}
 }
 
