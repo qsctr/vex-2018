@@ -55,9 +55,9 @@ task usercontrol() {
         }
 
         // presets
-        if (vexRT[Btn8U]) {
+        if (vexRT[Btn8R]) {
             start_dunker();
-        } else if (vexRT[Btn8R]) {
+        } else if (vexRT[Btn8D]) {
             stop_dunker();
             set_control(&arm_control, ARM_LOW_POLE);
             set_control(&hand_control, HAND_LIFTED);
