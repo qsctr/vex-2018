@@ -9,17 +9,17 @@ task lcd_updater() {
             if ((cur & kButtonCenter) && !(prev & kButtonCenter)) {
                 color = (Color) !color;
             }
-	        if ((cur & kButtonLeft) && !(prev & kButtonLeft)) {
-	            auto_mode--;
-	            if (auto_mode == 0) {
-	                auto_mode = AutoModeEnd - 1;
-	            }
-	        } else if ((cur & kButtonRight) && !(prev & kButtonRight)) {
-	            auto_mode++;
-	            if (auto_mode == AutoModeEnd) {
-	                auto_mode = (AutoMode) 1;
-	            }
-	        }
+            if ((cur & kButtonLeft) && !(prev & kButtonLeft)) {
+                auto_mode--;
+                if (auto_mode == 0) {
+                    auto_mode = AutoModeEnd - 1;
+                }
+            } else if ((cur & kButtonRight) && !(prev & kButtonRight)) {
+                auto_mode++;
+                if (auto_mode == AutoModeEnd) {
+                    auto_mode = (AutoMode) 1;
+                }
+            }
         }
         displayLCDString(0, 0, color == Red ? "RED " : "BLUE");
         displayLCDNumber(0, 5, auto_mode);
