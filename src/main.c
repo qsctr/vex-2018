@@ -2,6 +2,7 @@
 #pragma config(Sensor, in1,    arm_pot_left,   sensorPotentiometer)
 #pragma config(Sensor, in2,    arm_pot_right,  sensorPotentiometer)
 #pragma config(Sensor, in3,    hand_pot,       sensorPotentiometer)
+#pragma config(Sensor, in4,    power_expander, sensorAnalog)
 #pragma config(Sensor, I2C_1,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_2,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Motor,  port1,           shooter_top,   tmotorVex393_HBridge, openLoop)
@@ -21,14 +22,9 @@
 
 #include "Vex_Competition_Includes.c"
 
-#define COLOR "red"
-// 1 - front square, shoot dunk climb
-// 2 - front square, shoot dunk ram
-// 3 - back square, shoot climb
-#define AUTO_MODE 1
-
 #include "types.c"
 #include "constants.c"
+#include "autoconfig.c"
 #include "motors.c"
 #include "sensors.c"
 #include "pcontrol.c"
@@ -37,7 +33,9 @@
 #include "hand.c"
 #include "shooter.c"
 #include "intake.c"
+#include "lcd.c"
 #include "dunk.c"
 #include "tasks.c"
+#include "setup.c"
 #include "auto.c"
 #include "driver.c"

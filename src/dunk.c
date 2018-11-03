@@ -10,6 +10,10 @@ task dunker() {
     dunk();
 }
 
+void init_dunker() {
+    dunker_running = false;
+}
+
 void start_dunker() {
     if (dunker_running) return;
     startTask(dunker);

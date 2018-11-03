@@ -5,4 +5,5 @@ void start_all_tasks() {
     startTask(base_right_controller);
     startTask(arm_controller);
     startTask(hand_controller);
+    startTask(lcd_updater);
 }

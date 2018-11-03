@@ -18,6 +18,7 @@ static void disable_hand_preset() {
 
 task usercontrol() {
     start_all_tasks();
+    init_dunker();
     while (1) {
 
         // base
