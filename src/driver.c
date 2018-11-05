@@ -33,9 +33,7 @@ task usercontrol() {
         // arm
         if (vexRT[Btn6U]) {
             disable_arm_preset();
-            if (arm_pot_value < ARM_MAX) {
-                arm_power = 127;
-            }
+            arm_power = 127;
         } else if (vexRT[Btn6D]) {
             disable_arm_preset();
             arm_power = -127;

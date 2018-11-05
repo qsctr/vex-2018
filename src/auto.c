@@ -9,6 +9,7 @@ static void drive_red(SensorVal left, SensorVal right) {
 task autonomous() {
     start_all_tasks();
     shoot();
+    /*
     if (auto_mode == 1 || auto_mode == 2) {
         if (color == Red) {
             drive(600, -600);
@@ -24,7 +25,7 @@ task autonomous() {
         if (auto_mode == 1) {
             drive_red(200, 200);
             set_control(&hand_control, HAND_FLAT);
-            set_control(&arm_control, ARM_CLIMB);
+            set_control(&arm_control, ARM_GROUND);
             drive_red(1000, 0);
             drive_red(0, 1000);
             drive_red(500, 500);
@@ -39,7 +40,7 @@ task autonomous() {
             drive_red(3000, 3000);
         }
     } else {
-        set_control(&arm_control, ARM_CLIMB);
+        set_control(&arm_control, ARM_GROUND);
         set_control(&hand_control, HAND_FLAT);
         drive_red(1500, 1500);
         if (color == Red) {
@@ -51,4 +52,5 @@ task autonomous() {
         sleep(200);
         drive_red(1000, 1000);
     }
+    */
 }

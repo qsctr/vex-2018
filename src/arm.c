@@ -1,12 +1,14 @@
-#define ARM_GROUND 0
-#define ARM_CLIMB 500
-#define ARM_LOW_POLE 1000
+#define ARM_GROUND 200
+#define ARM_LOW_POLE 1280
 #define ARM_NEAR_HIGH_POLE 1600
-#define ARM_HIGH_POLE 1800
-#define ARM_MAX 2000
+#define ARM_HIGH_POLE 2200
 
-static PConstant arm_p = 0.5;
-static SensorVal arm_tolerance = 20;
+PIDConstant arm_p = 0.09;
+PIDConstant arm_i = 0;
+PIDConstant arm_d = 0;
+SensorVal arm_i_range = 100;
+SensorVal arm_tolerance = 20;
+MotorPower arm_min_power = 30;
 
 PControl arm_control;
 
@@ -15,7 +17,11 @@ task arm_controller() {
     config.control = &arm_control;
     config.motor_power = &arm_power;
     config.current_value = &arm_pot_value;
-    config.p_constant = arm_p;
-    config.tolerance = arm_tolerance;
+    config.p_constant = &arm_p;
+    config.i_constant = &arm_i;
+    config.d_constant = &arm_d;
+    config.i_range = &arm_i_range;
+    config.tolerance = &arm_tolerance;
+    config.min_power = &arm_min_power;
     run_control(&config);
 }

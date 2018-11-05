@@ -1,5 +1,5 @@
 task lcd_updater() {
-    // bLCDBacklight = true;
+    bLCDBacklight = true;
     displayLCDString(0, 0, "COLR XX COR=X.XX");
     displayLCDString(1, 0, "BAC=X.XX PE=X.XX");
     TControllerButtons prev = kButtonNone;
@@ -23,9 +23,9 @@ task lcd_updater() {
         }
         displayLCDString(0, 0, color == Red ? "RED " : "BLUE");
         displayLCDNumber(0, 5, auto_mode);
-        displayLCDNumber(0, 12, nImmediateBatteryLevel * 0.001, 2);
-        displayLCDNumber(1, 4, SensorValue(power_expander) / 280.0, 2);
-        displayLCDNumber(1, 12, BackupBatteryLevel * 0.001, 2);
+        displayLCDNumber(0, 12, nImmediateBatteryLevel);
+        displayLCDNumber(1, 4, SensorValue(power_expander) * 21.93);
+        displayLCDNumber(1, 12, BackupBatteryLevel);
         prev = cur;
         sleep(LOOP_PERIOD);
     }
