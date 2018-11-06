@@ -17,10 +17,14 @@ task arm_controller() {
     config.control = &arm_control;
     config.motor_power = &arm_power;
     config.current_value = &arm_pot_value;
-    config.p_constant = &arm_p;
-    config.i_constant = &arm_i;
-    config.d_constant = &arm_d;
-    config.i_range = &arm_i_range;
+    PIDSetting *settings[1];
+    PIDSetting setting;
+    settings[0] = &setting;
+    setting.p_constant = &arm_p;
+    setting.i_constant = &arm_i;
+    setting.d_constant = &arm_d;
+    setting.i_range = &arm_i_range;
+    config.pid_settings = (PIDSetting **) settings;
     config.tolerance = &arm_tolerance;
     config.min_power = &arm_min_power;
     run_control(&config);

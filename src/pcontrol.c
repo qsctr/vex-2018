@@ -1,15 +1,18 @@
 typedef struct {
     bool enabled;
+    PIDSettingIndex pid_index;
     SensorVal target;
     bool on_target;
 } PControl;
 
 void init_control(PControl *c) {
     c->enabled = false;
+    c->pid_index = 0;
 }
 
-void set_control(PControl *c, SensorVal target) {
+void set_control(PControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
     c->enabled = true;
+    c->pid_index = pid_index;
     c->target = target;
     c->on_target = false;
 }
@@ -20,8 +23,8 @@ void wait_on_target(PControl *c) {
     }
 }
 
-void sync_control(PControl *c, SensorVal target) {
-    set_control(c, target);
+void sync_control(PControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
+    set_control(c, target, pid_index);
     wait_on_target(c);
 }
 
@@ -30,13 +33,17 @@ void disable_control(PControl *c) {
 }
 
 typedef struct {
-    PControl *control;
-    MotorPower *motor_power;
-    SensorVal *current_value;
     PIDConstant *p_constant;
     PIDConstant *i_constant;
     PIDConstant *d_constant;
     SensorVal *i_range;
+} PIDSetting;
+
+typedef struct {
+    PControl *control;
+    MotorPower *motor_power;
+    SensorVal *current_value;
+    PIDSetting **pid_settings;
     SensorVal *tolerance;
     MotorPower *min_power;
 } PControlConfig;
@@ -49,16 +56,17 @@ void run_control(const PControlConfig *config) {
         if (config->control->enabled) {
             SensorVal error = config->control->target - *(config->current_value);
             config->control->on_target = abs(error) < *config->tolerance;
-            if (abs(error) < *config->i_range) {
+            PIDSetting *setting = config->pid_settings + config->control->pid_index;
+            if (abs(error) < *setting->i_range) {
                 integral += error;
             } else {
                 integral = 0;
             }
             SensorVal derivative = error - prev_error;
             prev_error = error;
-            SensorVal power = *config->p_constant * error
-                            + *config->i_constant * integral
-                            + *config->d_constant * derivative;
+            SensorVal power = *setting->p_constant * error
+                            + *setting->i_constant * integral
+                            + *setting->d_constant * derivative;
             if (power > MOTOR_MAX) power = MOTOR_MAX;
             if (power < MOTOR_MIN) power = MOTOR_MIN;
             if (!config->control->on_target) {

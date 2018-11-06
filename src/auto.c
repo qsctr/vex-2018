@@ -1,25 +1,33 @@
 static void drive_red(SensorVal left, SensorVal right) {
+    if (left < 0 && right < 0) {
+        intake_power = 127;
+    }
     if (color == Red) {
         drive(left, right);
     } else {
         drive(right, left);
     }
+    intake_power = 0;
 }
 
 task autonomous() {
     start_all_tasks();
     shoot();
-    /*
-    if (auto_mode == 1 || auto_mode == 2) {
+    if (auto_mode == FrontShootDunkClimb || auto_mode == FrontShootDunkRam) {
+        set_control(&hand_control, HAND_FLAT);
         if (color == Red) {
-            drive(600, -600);
+            drive(270, 0);
         } else {
-            drive(-700, 700);
+            drive(0, 300);
         }
-        drive_red(2000, 2000);
+        drive_red(900, 900);
         sync_control(&hand_control, HAND_LIFTED);
-        drive_red(-100, 100);
-        drive_red(-2500, -3000);
+        drive_red(-100, 0);
+        drive_red(-800, -800);
+        // drive_red(-500, -500);
+        // drive_red(80, 0);
+        // drive_red(-500, -500);
+        /*
         dunk();
         wait_on_target(&hand_control);
         if (auto_mode == 1) {
@@ -39,6 +47,7 @@ task autonomous() {
             drive_red(-500, 500);
             drive_red(3000, 3000);
         }
+        */
     } else {
         set_control(&arm_control, ARM_GROUND);
         set_control(&hand_control, HAND_FLAT);
@@ -52,5 +61,9 @@ task autonomous() {
         sleep(200);
         drive_red(1000, 1000);
     }
-    */
+    /*disable_control(&base_left_control);
+    base_left_power = 0;
+    disable_control(&base_right_control);
+    base_right_power = 0;*/
+    while (1) sleep(LOOP_PERIOD);
 }
