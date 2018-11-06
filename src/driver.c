@@ -33,10 +33,10 @@ task usercontrol() {
         // arm
         if (vexRT[Btn6U]) {
             disable_arm_preset();
-            arm_power = 127;
+            arm_power = 50;
         } else if (vexRT[Btn6D]) {
             disable_arm_preset();
-            arm_power = -127;
+            arm_power = -50;
             // TODO: move hand if unsafe
         } else if (!arm_control.enabled) {
             arm_power = 0;
