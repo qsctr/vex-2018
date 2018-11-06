@@ -27,7 +27,7 @@
 #include "autoconfig.c"
 #include "motors.c"
 #include "sensors.c"
-#include "pcontrol.c"
+#include "pidcontrol.c"
 #include "base.c"
 #include "arm.c"
 #include "hand.c"

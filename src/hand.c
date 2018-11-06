@@ -11,10 +11,10 @@ SensorVal hand_i_range = 100;
 SensorVal hand_tolerance = 20;
 MotorPower hand_min_power = 0;
 
-PControl hand_control;
+PIDControl hand_control;
 
 task hand_controller() {
-    PControlConfig config;
+    PIDControlConfig config;
     config.control = &hand_control;
     config.motor_power = &hand_power;
     config.current_value = &hand_pot_value;

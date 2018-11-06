@@ -10,10 +10,10 @@ SensorVal arm_i_range = 100;
 SensorVal arm_tolerance = 20;
 MotorPower arm_min_power = 30;
 
-PControl arm_control;
+PIDControl arm_control;
 
 task arm_controller() {
-    PControlConfig config;
+    PIDControlConfig config;
     config.control = &arm_control;
     config.motor_power = &arm_power;
     config.current_value = &arm_pot_value;

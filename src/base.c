@@ -14,8 +14,8 @@ void reset_base_encoders() {
     resetMotorEncoder(base_right2);
 }
 
-PControl base_left_control;
-PControl base_right_control;
+PIDControl base_left_control;
+PIDControl base_right_control;
 
 PIDSetting *base_pid_settings[2];
 PIDSetting base_straight_setting;
@@ -35,7 +35,7 @@ void setup_base() {
 }
 
 task base_left_controller() {
-    PControlConfig config;
+    PIDControlConfig config;
     config.control = &base_left_control;
     config.motor_power = &base_left_power;
     config.current_value = &base_left_encoder;
@@ -46,7 +46,7 @@ task base_left_controller() {
 }
 
 task base_right_controller() {
-    PControlConfig config;
+    PIDControlConfig config;
     config.control = &base_right_control;
     config.motor_power = &base_right_power;
     config.current_value = &base_right_encoder;

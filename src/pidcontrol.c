@@ -3,32 +3,32 @@ typedef struct {
     PIDSettingIndex pid_index;
     SensorVal target;
     bool on_target;
-} PControl;
+} PIDControl;
 
-void init_control(PControl *c) {
+void init_control(PIDControl *c) {
     c->enabled = false;
     c->pid_index = 0;
 }
 
-void set_control(PControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
+void set_control(PIDControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
     c->enabled = true;
     c->pid_index = pid_index;
     c->target = target;
     c->on_target = false;
 }
 
-void wait_on_target(PControl *c) {
+void wait_on_target(PIDControl *c) {
     while (!c->on_target) {
         sleep(LOOP_PERIOD);
     }
 }
 
-void sync_control(PControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
+void sync_control(PIDControl *c, SensorVal target, PIDSettingIndex pid_index = 0) {
     set_control(c, target, pid_index);
     wait_on_target(c);
 }
 
-void disable_control(PControl *c) {
+void disable_control(PIDControl *c) {
     c->enabled = false;
 }
 
@@ -40,15 +40,15 @@ typedef struct {
 } PIDSetting;
 
 typedef struct {
-    PControl *control;
+    PIDControl *control;
     MotorPower *motor_power;
     SensorVal *current_value;
     PIDSetting **pid_settings;
     SensorVal *tolerance;
     MotorPower *min_power;
-} PControlConfig;
+} PIDControlConfig;
 
-void run_control(const PControlConfig *config) {
+void run_control(const PIDControlConfig *config) {
     init_control(config->control);
     SensorVal integral;
     SensorVal prev_error;
