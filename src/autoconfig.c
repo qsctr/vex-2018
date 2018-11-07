@@ -3,7 +3,7 @@ enum Color {
     Blue
 };
 
-Color color = Red;
+Color color = Blue;
 
 enum AutoMode {
     FrontShootDunkClimb = 1,

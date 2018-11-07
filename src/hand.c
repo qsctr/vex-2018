@@ -18,14 +18,10 @@ task hand_controller() {
     config.control = &hand_control;
     config.motor_power = &hand_power;
     config.current_value = &hand_pot_value;
-    PIDSetting *settings[1];
-    PIDSetting setting;
-    settings[0] = &setting;
-    setting.p_constant = &hand_p;
-    setting.i_constant = &hand_i;
-    setting.d_constant = &hand_d;
-    setting.i_range = &hand_i_range;
-    config.pid_settings = (PIDSetting **) settings;
+    config.p_constant = &hand_p;
+    config.i_constant = &hand_i;
+    config.d_constant = &hand_d;
+    config.i_range = &hand_i_range;
     config.tolerance = &hand_tolerance;
     config.min_power = &hand_min_power;
     run_control(&config);
