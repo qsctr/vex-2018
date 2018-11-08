@@ -3,9 +3,9 @@
 #define ARM_NEAR_HIGH_POLE 1600
 #define ARM_HIGH_POLE 2205
 
-PIDConstant arm_p = 0.05;
+PIDConstant arm_p = 0.15;
 PIDConstant arm_i = 0;
-PIDConstant arm_d = 0.5;
+PIDConstant arm_d = 1.2;
 SensorVal arm_i_range = 100;
 SensorVal arm_tolerance = 20;
 MotorPower arm_min_power = 30;
