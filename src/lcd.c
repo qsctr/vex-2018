@@ -24,8 +24,8 @@ task lcd_updater() {
         displayLCDString(0, 0, color == Red ? "RED " : "BLUE");
         displayLCDNumber(0, 5, auto_mode);
         displayLCDNumber(0, 12, nImmediateBatteryLevel);
-        displayLCDNumber(1, 4, SensorValue(power_expander) * 21.93);
-        displayLCDNumber(1, 12, BackupBatteryLevel);
+        displayLCDNumber(1, 4, BackupBatteryLevel);
+        displayLCDNumber(1, 12, SensorValue(power_expander) / (45.6 * 4) * 1000);
         prev = cur;
         sleep(LOOP_PERIOD);
     }
