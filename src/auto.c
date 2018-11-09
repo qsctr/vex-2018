@@ -14,8 +14,8 @@ int asdf;
 
 task autonomous() {
     start_all_tasks();
-    shoot();
     if (auto_mode == FrontShootDunkClimb || auto_mode == FrontShootDunkRam) {
+        shoot();
         set_control(&hand_control, HAND_FLAT);
         set_control(&arm_control, ARM_GROUND);
         if (color == Red) {
@@ -40,7 +40,8 @@ task autonomous() {
             set_control(&arm_control, ARM_GROUND);
             drive_red(700, 0);
             drive_red(0, 700, 1500);
-            drive_red(1000, 1000, 400);
+            drive_red(1000, 1000, 300);
+            drive_red(200, 200, 300);
             drive_red(0, 0, 500);
             drive_red(10000000, 10000000, 2000);
         } else {
@@ -54,15 +55,24 @@ task autonomous() {
     } else {
         set_control(&arm_control, ARM_GROUND);
         set_control(&hand_control, HAND_FLAT);
-        drive_red(1500, 1500);
         if (color == Red) {
-            drive(1000, -1000);
+            drive(160, 90);
         } else {
-            drive(-1100, 1100);
+
+        }
+        sleep(1000);
+        shoot();
+        drive_red(300, 300);
+        /*if (color == Red) {
+            drive(500, 0);
+        } else {
+            drive_red(1000, 1000, 600);
+            drive_red(0, 0, 500);
+            drive_red(10000000, 10000000, 2000);
         }
         drive_red(1000, 1000);
         sleep(200);
-        drive_red(1000, 1000);
+        drive_red(1000, 1000);*/
     }
     disable_control(&base_left_control);
     base_left_power = 0;
@@ -70,3 +80,4 @@ task autonomous() {
     base_right_power = 0;
     while (1) sleep(LOOP_PERIOD);
 }
+// 179 91
