@@ -22,6 +22,8 @@
 
 #include "Vex_Competition_Includes.c"
 
+// #define AUTO_SKILLS
+
 #include "types.c"
 #include "constants.c"
 #include "autoconfig.c"

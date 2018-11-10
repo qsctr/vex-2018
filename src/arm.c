@@ -1,7 +1,7 @@
 #define ARM_GROUND 200
 #define ARM_LOW_POLE 1280
 #define ARM_NEAR_HIGH_POLE 1600
-#define ARM_HIGH_POLE 2205
+#define ARM_HIGH_POLE 2215
 
 PIDConstant arm_p = 0.15;
 PIDConstant arm_i = 0;

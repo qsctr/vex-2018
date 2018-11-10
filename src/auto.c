@@ -2,6 +2,11 @@ static void drive_red(SensorVal left, SensorVal right, Ms time = 0) {
     if (left < 0 && right < 0) {
         intake_power = 127;
     }
+#ifdef AUTO_SKILLS
+    if (left > 0 && right > 0) {
+        intake_power = -127;
+    }
+#endif
     if (color == Red) {
         drive(left, right, time);
     } else {
@@ -29,7 +34,11 @@ task autonomous() {
         drive_red(-200, 0);
         drive_red(-775, -775);
         drive_red(0, -540);
+#ifdef AUTO_SKILLS
+        drive_red(-300, -300, 1000);
+#else
         drive_red(-1000, -1000, 500);
+#endif
         drive_red(0, 0);
         dunk();
         wait_on_target(&hand_control);
@@ -40,10 +49,30 @@ task autonomous() {
             set_control(&arm_control, ARM_GROUND);
             drive_red(700, 0);
             drive_red(0, 700, 1500);
+#ifdef AUTO_SKILLS
+            set_control(&arm_control, ARM_GROUND + 200);
+            sync_control(&hand_control, HAND_FLAT + 100);
+            drive_red(-400, 0, 1000);
+            drive_red(400, 0, 1000);
+            drive_red(0, -400, 1000);
+            drive_red(0, 400, 1000);
+            set_control(&arm_control, ARM_GROUND);
+            sync_control(&hand_control, HAND_UP);
+            drive_red(1000, 1000, 500);
+            drive_red(300, 300, 300);
+#else
             drive_red(1000, 1000, 300);
             drive_red(200, 200, 300);
+#endif
             drive_red(0, 0, 500);
+#ifdef AUTO_SKILLS
+            drive_red(10000000, 10000000, 1800);
+            drive_red(300, 300, 500);
+            drive_red(0, 0, 500);
+            drive_red(10000000, 10000000, 800);
+#else
             drive_red(10000000, 10000000, 2000);
+#endif
         } else {
             sync_control(&arm_control, ARM_NEAR_HIGH_POLE);
             set_control(&arm_control, ARM_GROUND);
@@ -57,12 +86,12 @@ task autonomous() {
         set_control(&hand_control, HAND_FLAT);
         if (color == Red) {
             drive(160, 90);
+            sleep(1000);
+            shoot();
+            drive_red(300, 300);
         } else {
 
         }
-        sleep(1000);
-        shoot();
-        drive_red(300, 300);
         /*if (color == Red) {
             drive(500, 0);
         } else {
