@@ -1,7 +1,7 @@
 task lcd_updater() {
     bLCDBacklight = true;
-    displayLCDString(0, 0, "COLR X  COR=XXXX");
-    displayLCDString(1, 0, "BAC=XXXX PE=XXXX");
+    displayLCDString(0, 0, "COLR    COR=    ");
+    displayLCDString(1, 0, "BAC=     PE=    ");
     TControllerButtons prev = kButtonNone;
     while (1) {
         TControllerButtons cur = nLCDButtons;
