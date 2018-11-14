@@ -60,6 +60,13 @@ task usercontrol() {
             stop_dunker();
             set_control(&arm_control, ARM_LOW_POLE);
             set_control(&hand_control, HAND_LIFTED);
+        } else if (vexRT[Btn7L]) {
+            stop_dunker();
+            set_control(&arm_control, ARM_POLE_FLIP);
+            set_control(&hand_control, HAND_POLE_FLIP);
+        } else if (vexRT[Btn7U]) {
+            stop_dunker();
+            set_control(&arm_control, ARM_POLE_FLIP_UP);
         } else if (vexRT[Btn7D]) {
             stop_dunker();
             set_control(&arm_control, ARM_GROUND);
