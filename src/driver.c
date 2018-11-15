@@ -16,6 +16,8 @@ static void disable_hand_preset() {
     }
 }
 
+int acc;
+
 task usercontrol() {
     start_all_tasks();
     init_dunker();
@@ -71,6 +73,14 @@ task usercontrol() {
             stop_dunker();
             set_control(&arm_control, ARM_GROUND);
             set_control(&hand_control, HAND_FLAT);
+        } else if (vexRT[Btn7R]) {
+            stop_dunker();
+            set_control(&arm_control, ARM_GROUND_FLIP);
+            set_control(&hand_control, HAND_GROUND_FLIP);
+        } else if (vexRT[Btn8L]) {
+            stop_dunker();
+            set_control(&arm_control, ARM_RAM);
+            set_control(&hand_control, HAND_RAM);
         }
 
         // shooter
@@ -82,10 +92,19 @@ task usercontrol() {
         } else if (vexRT[Btn6DXmtr2]) {
             intake_power = -127;
         } else if (vexRT[Btn8UXmtr2]) {
-            intake_power = 40;
+            intake_power = 70;
+        } else if (vexRT[Btn8DXmtr2]) {
+            intake_power = -70;
         } else {
             intake_power = 0;
         }
+
+        acc = vexRT[AccelX];
+        if (abs(vexRT[AccelX]) > 10) {
+            playImmediateTone(1000 + vexRT[AccelX] * 5, LOOP_PERIOD);
+        }
+
+        sleep(LOOP_PERIOD);
 
     }
 }
