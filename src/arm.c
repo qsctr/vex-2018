@@ -1,5 +1,4 @@
 #define ARM_GROUND 200
-#define ARM_GROUND_FLIP 600
 #define ARM_POLE_FLIP 850
 #define ARM_RAM 870
 #define ARM_LOW_POLE 1280

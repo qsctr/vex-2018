@@ -71,10 +71,6 @@ task usercontrol() {
             stop_dunker();
             set_control(&arm_control, ARM_GROUND);
             set_control(&hand_control, HAND_FLAT);
-        } else if (vexRT[Btn7R]) {
-            stop_dunker();
-            set_control(&arm_control, ARM_GROUND_FLIP);
-            set_control(&hand_control, HAND_GROUND_FLIP);
         } else if (vexRT[Btn8L]) {
             stop_dunker();
             set_control(&arm_control, ARM_RAM);
