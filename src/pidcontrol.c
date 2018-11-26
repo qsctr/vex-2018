@@ -62,8 +62,10 @@ void run_control(const PIDControlConfig *config) {
             if (power > MOTOR_MAX) power = MOTOR_MAX;
             if (power < MOTOR_MIN) power = MOTOR_MIN;
             if (!config->control->on_target) {
-                if (power > 0 && power < *config->min_power) power = *config->min_power;
-                if (power < 0 && power > -*config->min_power) power = -*config->min_power;
+                if (power > 0 && power < *config->min_power)
+                    power = *config->min_power;
+                if (power < 0 && power > -*config->min_power)
+                    power = -*config->min_power;
             }
             *config->motor_power = power;
         } else {

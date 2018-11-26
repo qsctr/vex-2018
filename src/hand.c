@@ -15,17 +15,20 @@ SensorVal hand_tolerance = 20;
 MotorPower hand_min_power = 0;
 
 PIDControl hand_control;
+PIDControlConfig hand_control_config;
+
+void init_hand() {
+    hand_control_config.control = &hand_control;
+    hand_control_config.motor_power = &hand_power;
+    hand_control_config.current_value = &hand_pot_value;
+    hand_control_config.p_constant = &hand_p;
+    hand_control_config.i_constant = &hand_i;
+    hand_control_config.d_constant = &hand_d;
+    hand_control_config.i_range = &hand_i_range;
+    hand_control_config.tolerance = &hand_tolerance;
+    hand_control_config.min_power = &hand_min_power;
+}
 
 task hand_controller() {
-    PIDControlConfig config;
-    config.control = &hand_control;
-    config.motor_power = &hand_power;
-    config.current_value = &hand_pot_value;
-    config.p_constant = &hand_p;
-    config.i_constant = &hand_i;
-    config.d_constant = &hand_d;
-    config.i_range = &hand_i_range;
-    config.tolerance = &hand_tolerance;
-    config.min_power = &hand_min_power;
-    run_control(&config);
+    run_control(&hand_control_config);
 }

@@ -15,17 +15,20 @@ SensorVal arm_tolerance = 20;
 MotorPower arm_min_power = 30;
 
 PIDControl arm_control;
+PIDControlConfig arm_control_config;
+
+void init_arm() {
+    arm_control_config.control = &arm_control;
+    arm_control_config.motor_power = &arm_power;
+    arm_control_config.current_value = &arm_pot_value;
+    arm_control_config.p_constant = &arm_p;
+    arm_control_config.i_constant = &arm_i;
+    arm_control_config.d_constant = &arm_d;
+    arm_control_config.i_range = &arm_i_range;
+    arm_control_config.tolerance = &arm_tolerance;
+    arm_control_config.min_power = &arm_min_power;
+}
 
 task arm_controller() {
-    PIDControlConfig config;
-    config.control = &arm_control;
-    config.motor_power = &arm_power;
-    config.current_value = &arm_pot_value;
-    config.p_constant = &arm_p;
-    config.i_constant = &arm_i;
-    config.d_constant = &arm_d;
-    config.i_range = &arm_i_range;
-    config.tolerance = &arm_tolerance;
-    config.min_power = &arm_min_power;
-    run_control(&config);
+    run_control(&arm_control_config);
 }

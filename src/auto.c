@@ -15,8 +15,6 @@ static void drive_red(SensorVal left, SensorVal right, Ms time = 0) {
     intake_power = 0;
 }
 
-int asdf;
-
 task autonomous() {
     start_all_tasks();
     if (auto_mode == FrontShootDunkClimb || auto_mode == FrontShootDunkRam) {
@@ -25,7 +23,6 @@ task autonomous() {
         set_control(&arm_control, ARM_GROUND);
         if (color == Red) {
             drive(270, 0);
-            asdf = 1;
         } else {
             drive(0, 400);
         }
@@ -109,4 +106,3 @@ task autonomous() {
     base_right_power = 0;
     while (1) sleep(LOOP_PERIOD);
 }
-// 179 91

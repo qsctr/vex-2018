@@ -12,33 +12,37 @@ void reset_base_encoders() {
 
 PIDControl base_left_control;
 PIDControl base_right_control;
+PIDControlConfig base_left_control_config;
+PIDControlConfig base_right_control_config;
+
+void init_base() {
+    base_left_control_config.control = &base_left_control;
+    base_left_control_config.motor_power = &base_left_power;
+    base_left_control_config.current_value = &base_left_encoder;
+    base_left_control_config.p_constant = &base_p;
+    base_left_control_config.i_constant = &base_i;
+    base_left_control_config.d_constant = &base_d;
+    base_left_control_config.i_range = &base_i_range;
+    base_left_control_config.tolerance = &base_tolerance;
+    base_left_control_config.min_power = &base_min_power;
+
+    base_right_control_config.control = &base_right_control;
+    base_right_control_config.motor_power = &base_right_power;
+    base_right_control_config.current_value = &base_right_encoder;
+    base_right_control_config.p_constant = &base_p;
+    base_right_control_config.i_constant = &base_i;
+    base_right_control_config.d_constant = &base_d;
+    base_right_control_config.i_range = &base_i_range;
+    base_right_control_config.tolerance = &base_tolerance;
+    base_right_control_config.min_power = &base_min_power;
+}
 
 task base_left_controller() {
-    PIDControlConfig config;
-    config.control = &base_left_control;
-    config.motor_power = &base_left_power;
-    config.current_value = &base_left_encoder;
-    config.p_constant = &base_p;
-    config.i_constant = &base_i;
-    config.d_constant = &base_d;
-    config.i_range = &base_i_range;
-    config.tolerance = &base_tolerance;
-    config.min_power = &base_min_power;
-    run_control(&config);
+    run_control(&base_left_control_config);
 }
 
 task base_right_controller() {
-    PIDControlConfig config;
-    config.control = &base_right_control;
-    config.motor_power = &base_right_power;
-    config.current_value = &base_right_encoder;
-    config.p_constant = &base_p;
-    config.i_constant = &base_i;
-    config.d_constant = &base_d;
-    config.i_range = &base_i_range;
-    config.tolerance = &base_tolerance;
-    config.min_power = &base_min_power;
-    run_control(&config);
+    run_control(&base_right_control_config);
 }
 
 void drive(SensorVal left_target, SensorVal right_target, Ms time = 0) {

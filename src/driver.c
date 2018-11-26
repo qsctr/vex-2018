@@ -16,8 +16,6 @@ static void disable_hand_preset() {
     }
 }
 
-int acc;
-
 task usercontrol() {
     start_all_tasks();
     init_dunker();
@@ -99,7 +97,6 @@ task usercontrol() {
             intake_power = 0;
         }
 
-        acc = vexRT[AccelX];
         if (abs(vexRT[AccelX]) > 10) {
             playImmediateTone(1000 + vexRT[AccelX] * 5, LOOP_PERIOD);
         }
