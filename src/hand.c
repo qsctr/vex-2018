@@ -1,4 +1,4 @@
-#define HAND_RAM 0
+#define HAND_RAM 100
 #define HAND_FLAT 330
 #define HAND_POLE_FLIP 1190
 #define HAND_LIFTED 1340
