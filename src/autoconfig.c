@@ -15,4 +15,4 @@ enum AutoMode {
     AutoModeEnd // add new autos before this line
 };
 
-AutoMode auto_mode = BackShootCenterTop;
+AutoMode auto_mode = FrontShootDunkClimb;
