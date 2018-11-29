@@ -93,6 +93,7 @@ task usercontrol() {
             intake_power = 0;
         }
 
+        // music
         if (abs(vexRT[AccelX]) > 10) {
             playImmediateTone(1000 + vexRT[AccelX] * 5, LOOP_PERIOD);
         }
