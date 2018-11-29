@@ -24,19 +24,28 @@ task autonomous() {
         set_control(&hand_control, HAND_FLAT);
         set_control(&arm_control, ARM_GROUND);
         if (color == Red) {
-            drive(270, 0);
+            drive(300, 0);
         } else {
             drive(0, 400);
         }
         drive_red(900, 900);
         set_control(&hand_control, HAND_LIFTED);
-        drive_red(-200, 0);
-        drive_red(-775, -775);
+        if (color == Red) {
+            drive(-230, 0);
+            drive(-850, -850);
+        } else {
+            drive(0, -200);
+            drive(-775, -775);
+        }
         drive_red(0, -540);
 #ifdef AUTO_SKILLS
         drive_red(-300, -300, 1000);
 #else
-        drive_red(-1000, -1000, 500);
+        if (color == Red) {
+            drive(-1000, -1000, 400);
+        } else {
+            drive(-1000, -1000, 500);
+        }
 #endif
         drive_red(0, 0);
         dunk();
@@ -98,7 +107,11 @@ void climb() {
     drive_red(1000, 1000, 500);
     drive_red(300, 300, 300);
 #else
-    drive_red(1000, 1000, 300);
+    if (color == Red) {
+        drive_red(1000, 1000, 500);
+    } else {
+        drive_red(1000, 1000, 300);
+    }
     drive_red(200, 200, 300);
 #endif
     drive_red(0, 0, 500);
