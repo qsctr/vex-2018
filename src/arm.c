@@ -1,4 +1,5 @@
 #define ARM_GROUND 200
+#define ARM_BALL_KNOCK 400
 #define ARM_POLE_FLIP 850
 #define ARM_RAM 870
 #define ARM_LOW_POLE 1330

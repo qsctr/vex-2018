@@ -87,8 +87,8 @@ task autonomous() {
 
 void climb() {
 #ifdef AUTO_SKILLS
-    sync_control(&arm_control, ARM_GROUND + 200);
-    sync_control(&hand_control, HAND_FLAT + 100);
+    sync_control(&arm_control, ARM_BALL_KNOCK);
+    sync_control(&hand_control, HAND_BALL_KNOCK);
     drive_red(-400, 0, 1000);
     drive_red(400, 0, 1000);
     drive_red(0, -400, 1000);
