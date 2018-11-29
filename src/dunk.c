@@ -1,6 +1,10 @@
 bool dunker_running;
 
 void dunk() {
+    set_control(&arm_control, ARM_HIGH_POLE);
+    while (arm_pot_value < ARM_GROUND + 300) {
+        sleep(LOOP_PERIOD);
+    }
     set_control(&hand_control, HAND_FLIP);
     sync_control(&arm_control, ARM_HIGH_POLE);
 #ifdef AUTO_SKILLS
