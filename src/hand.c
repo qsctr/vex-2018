@@ -1,5 +1,6 @@
 #define HAND_RAM 100
 #define HAND_FLAT 330
+#define HAND_SLANT_FLIP 460
 #define HAND_BALL_KNOCK 430
 #define HAND_POLE_FLIP 1190
 #define HAND_LIFTED 1340

@@ -75,6 +75,10 @@ task usercontrol() {
             stop_dunker();
             set_control(&arm_control, ARM_RAM);
             set_control(&hand_control, HAND_RAM);
+        } else if (vexRT[Btn7R] || vexRT[Btn7DXmtr2]) {
+            stop_dunker();
+            set_control(&arm_control, ARM_SLANT_FLIP);
+            set_control(&hand_control, HAND_SLANT_FLIP);
         }
 
         // shooter
