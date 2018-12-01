@@ -84,11 +84,16 @@ task autonomous() {
         drive_red(500, 500);
         shoot();
     } else if (auto_mode == BackShootCenterTop) {
+        drive_red(150, 150, 1000);
+        if (base_left_encoder == 0 && base_right_encoder == 0) {
+            goto auto_end;
+        }
         shoot();
-        drive_red(680, 680);
+        drive_red(480, 480);
         drive_red(450, 0, 2000);
         climb();
     }
+    auto_end:
     disable_control(&base_left_control);
     base_left_power = 0;
     disable_control(&base_right_control);
