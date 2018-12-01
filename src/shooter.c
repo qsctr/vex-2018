@@ -1,4 +1,4 @@
-#define SHOOTER_PERIOD 1000
+#define SHOOTER_PERIOD 1500
 
 void shoot() {
     shooter_power = 127;
