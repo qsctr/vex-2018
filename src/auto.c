@@ -80,6 +80,7 @@ task autonomous() {
         sleep(13000);
         shoot();
     } else if (auto_mode == BackShootOppositeTop) {
+        sleep(10000);
         drive_red(500, 500);
         shoot();
     } else if (auto_mode == BackShootCenterTop) {
