@@ -26,25 +26,26 @@ task autonomous() {
         if (color == Red) {
             drive(300, 0);
         } else {
-            drive(0, 400);
+            drive(0, 500);
         }
         drive_red(900, 900);
         set_control(&hand_control, HAND_LIFTED);
         if (color == Red) {
             drive(-230, 0);
-            drive(-850, -850);
+            drive(-880, -880);
+            drive(0, -540);
         } else {
-            drive(0, -200);
-            drive(-775, -775);
+            drive(0, -230);
+            drive(-960, -960);
+            drive(-550, 0);
         }
-        drive_red(0, -540);
 #ifdef AUTO_SKILLS
         drive_red(-300, -300, 1000);
 #else
         if (color == Red) {
             drive(-1000, -1000, 400);
         } else {
-            drive(-1000, -1000, 500);
+            drive(-1000, -1000, 600);
         }
 #endif
         drive_red(0, 0);
@@ -107,11 +108,7 @@ void climb() {
     drive_red(1000, 1000, 500);
     drive_red(300, 300, 300);
 #else
-    if (color == Red) {
-        drive_red(1000, 1000, 500);
-    } else {
-        drive_red(1000, 1000, 300);
-    }
+    drive_red(1000, 1000, 500);
     drive_red(200, 200, 300);
 #endif
     drive_red(0, 0, 500);
@@ -119,8 +116,8 @@ void climb() {
     drive_red(10000000, 10000000, 1800);
     drive_red(300, 300, 500);
     drive_red(0, 0, 500);
-    drive_red(10000000, 10000000, 800);
+    drive_red(10000000, 10000000, 1000);
 #else
-    drive_red(10000000, 10000000, 2000);
+    drive_red(10000000, 10000000, 1800);
 #endif
 }
