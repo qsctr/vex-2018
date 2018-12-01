@@ -7,9 +7,6 @@ void dunk() {
     }
     set_control(&hand_control, HAND_FLIP);
     sync_control(&arm_control, ARM_HIGH_POLE);
-#ifdef AUTO_SKILLS
-    sleep(2000);
-#endif
     set_control(&hand_control, HAND_DUNK);
 }
 
