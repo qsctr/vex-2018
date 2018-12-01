@@ -68,7 +68,7 @@ task autonomous() {
             drive_red(3000, 3000);
         }
     } else if (auto_mode == BackShootClimb) {
-        shoot();
+        // shoot();
         if (color == Red) {
             drive(1100, 470);
         } else {
